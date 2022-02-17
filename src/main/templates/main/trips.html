@@ -1,0 +1,8 @@
+{% extends 'main/base.html' %}
+{% block title %}Поездки{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h2>Поездки</h2>
+        {% include 'main/partials/trip.html' with trips=trips %}
+    </div>
+{% endblock %}

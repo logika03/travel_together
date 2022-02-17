@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+    <div class="container text-left">
+        <h2>{{ article.title }}</h2>
+        <hr>
+        <h4>{{ article.text }}</h4>
+        <span>&#128065; {{ article.count_of_views }}</span><span class="me-2 ms-3"></span>
+        <hr>
+        <ul>
+            <li data-id="{{ like_obj.id }}" data-type="article" data-action="like" title="Нравится">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+                <span data-count="like">{{ like_obj.votes.likes.count }}</span>
+            </li>
+        </ul>
+        <h4>Комментарии</h4>
+        <ol>
+            {% for comment in article.comments.all %}
+                <li>
+                    <div><p>{{ comment.text }}</p></div>
+                    {% if not comment.is_anonymous %}
+                        <div>{{ comment.author }}</div>
+                    {% endif %}
+                </li>
+                <hr>
+            {% endfor %}
+        </ol>
+        {% if user.is_authenticated %}
+            <div class="container">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <textarea class="form-control resize-none" placeholder="Оставьте комментарий" name="text"></textarea>
+                    <p><input type="radio" name="is_anonymous"> оставить анонимно</p>
+                    <button type="submit" class="btn btn-default">Отправить</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

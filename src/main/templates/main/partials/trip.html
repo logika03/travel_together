@@ -1,0 +1,15 @@
+<div class="text-start">
+    {% for trip in trips %}
+        <ol>
+            <li class="font-size-25"><a class="text-sm-start" href="{% url 'trip' trip.id %}">
+                {{ trip.city }}, {{ trip.country }}</a></li>
+            <li class="mt-2">{{ trip.date }}</li>
+            <li>Транспорт:
+                {% for transport in trip.transport.all %}
+                    {{ transport }}
+                {% endfor %}
+            </li>
+        </ol>
+        <hr>
+    {% endfor %}
+</div>

@@ -1,0 +1,32 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title_name %}Вход{% endblock %}
+{% block static_files %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="form-signin">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+                {% for field, error in form.errors.items %}
+                    <b>{{ error }}</b>
+                {% endfor %}
+            {% endif %}
+            <h1 class="h3 mb-3 fw-normal">Вход</h1>
+
+            <div class="form-floating">
+                <input type="email" name="email" class="form-control first" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="text-dark">Email</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" name="password" class="form-control last" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword" class="text-dark">Пароль</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Войти</button>
+        </form>
+
+    </div>
+    <a href="{% url 'reset' %}">Забыли пароль?</a>
+    <p>Не зарегистрированы? <a href="{% url 'signup' %}"> Зарегистрироваться</a></p>
+{% endblock %}

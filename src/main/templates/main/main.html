@@ -1,0 +1,30 @@
+{% extends 'main/main_base.html' %}
+{% block title %}Главная{% endblock %}
+{% load static %}
+{% block base_content %}
+    <div class="row">
+        <img src="{% static 'media/main1.jpg' %}" class="max_cover_container col">
+        <div class="col display-4 mt-5">оглянись</div>
+    </div>
+    <div class="row">
+        <div class="col display-4 mt-5 ms-3">посмотри, какая красота тебя окружает</div>
+        <img src="{% static 'media/main2.jpg' %}" class="max_cover_container float-end col">
+    </div>
+    <div class="row">
+        <img src="{% static 'media/main3.jpg' %}" class="max_cover_container col">
+        <div class="col display-4 mt-5">насладись ею</div>
+    </div>
+    <div class="row">
+        <div class="col display-5 mt-5 ms-3">путешествуй, оно того стоит</div>
+        <img src="{% static 'media/main4.jpg' %}" class="max_cover_container float-end col">
+    </div>
+    <div class="row">
+        <div class="col mt-5 btn btn-default align-self-center border-dark">
+            <a href="{% url 'trips' %}" class="p-5 display-6">Найти компанию для поездки</a></div>
+    </div>
+{% endblock %}
+
+{% load static %}
+{% block static_files %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}

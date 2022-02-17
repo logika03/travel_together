@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="text-start">
+        <h2>Часто задаваемые вопросы</h2>
+        <div class="mt-5">
+            {% for id, created_at, updated_at, question, answer in faqs %}
+                <li>
+                    <h5>{{ question }}</h5>
+                    <p>{{ answer }}</p>
+                </li>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
