@@ -46,14 +46,14 @@ class BlogTests(TestCase):
         self.assertEqual(str(article1), 'Test')
         self.assertEqual(article2.author.location, 'Kazan')
 
-    def test_send_comment(self):
-        c = Client()
-        signup_user(c)
-        article = Article.objects.first()
-        url = reverse('blog:article', args=[article.id])
-        c.post(url, {
-            'text': 'Text',
-            'is_anonymous': True,
-        })
-        comment = Comment.objects.filter(article=article).first()
-        self.assertEqual(comment.text, 'Text')
+    # def test_send_comment(self):
+    #     c = Client()
+    #     signup_user(c)
+    #     article = Article.objects.first()
+    #     url = reverse('blog:article', args=[article.id])
+    #     c.post(url, {
+    #         'text': 'Text',
+    #         'is_anonymous': True,
+    #     })
+    #     comment = Comment.objects.filter(article=article).first()
+    #     self.assertEqual(comment.text, 'Text')

@@ -92,9 +92,9 @@ WSGI_APPLICATION = 'searchpeople.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ.get("DB_NAME", "search_people"),
-        "USER": os.environ.get("DB_USER", "search_people"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "search_people"),
+        "NAME": os.environ.get("DB_NAME", "search_people2"),
+        "USER": os.environ.get("DB_USER", "postgres"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "postgres"),
         "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "PORT": "5432",
     }
@@ -165,6 +165,7 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = '/'
 
