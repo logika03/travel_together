@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:12.7-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=search_people
+      - POSTGRES_USER=search_people
+      - POSTGRES_DB=search_people
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+  web:
+    build: .
+#    command: bash -c "python src/manage.py migrate && python src/manage.py runserver 0.0.0.0:8000"
+
+volumes:
+    postgres_data:

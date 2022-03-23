@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from pprint import pprint
+
 from celery.schedules import crontab
 from dotenv import load_dotenv, find_dotenv
 
@@ -32,7 +34,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "localhost",
     "search--people.herokuapp.com",
-    "127.0.0.1"
+    "127.0.0.1",
+    "192.168.99.106",
 ]
 
 # Application definition
@@ -89,13 +92,39 @@ WSGI_APPLICATION = 'searchpeople.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ.get("DB_NAME", "search_people2"),
-        "USER": os.environ.get("DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "postgres"),
-        "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
+        "NAME": os.environ.get("DB_NAME", "search_people"),
+        "USER": os.environ.get("DB_USER", "search_people"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "search_people"),
+        "HOST": os.environ.get("DB_HOST", "192.168.99.106"),
         "PORT": "5432",
     }
 }
+#
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "search_people",
+#         "USER": "search_people",
+#         "PASSWORD": "search_people",
+#         "HOST": "postgres",
+#         "PORT": "5432",
+#     }
+# }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": os.environ.get("DB_NAME", "search_people2"),
+#         "USER": os.environ.get("DB_USER", "postgres"),
+#         "PASSWORD": os.environ.get("DB_PASSWORD", "postgres"),
+#         "HOST": os.environ.get("DB_HOST", "postgres"),
+#         "PORT": "5432",
+#     }
+# }
+
+
+
+pprint(f"database {DATABASES}")
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
