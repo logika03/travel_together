@@ -1,0 +1,75 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:12.7-alpine
+    environment:
+      - DB_NAME=search_people
+      - DB_USER=search_people
+      - DB_PASSWORD=search_people
+      - DB_HOST=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  web:
+    build: .
+    command: bash -c "python src/manage.py migrate && python src/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_NAME=search_people
+      - DB_USER=search_people
+      - DB_PASSWORD=search_people
+      - DB_HOST=postgres
+    depends_on:
+      - postgres
+
+keycloak:
+    # Image tag (replace with yours)
+    image: jboss/keycloak:13.0.0
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_PORT: 5432
+      # Database name (replace with yours)
+      DB_DATABASE: akdb
+      # Database user (replace with yours)
+      DB_USER: keycloakdbuser
+      # Database password (replace with yours)
+      DB_PASSWORD: EqhvLbsPhrkkZjcaGWcV7qT
+      # Keycloak user (replace with yours)
+      KEYCLOAK_USER: keycloakadmin
+      # Keycloak password (replace with yours)
+      KEYCLOAK_PASSWORD: rwXPqspCABJzqh47i723wf9
+      JGROUPS_DISCOVERY_PROTOCOL: JDBC_PING
+      JGROUPS_DISCOVERY_PROPERTIES: datasource_jndi_name=java:jboss/datasources/KeycloakDS,info_writer_sleep_time=500,initialize_sql="CREATE TABLE IF NOT EXISTS JGROUPSPING ( own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, created timestamp default current_timestamp, ping_data BYTEA, constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))"
+      PROXY_ADDRESS_FORWARDING: 'true'
+      KEYCLOAK_LOGLEVEL: WARN
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+    labels:
+      - "traefik.enable=true"
+      # Keycloak URL (replace with yours)
+      - "traefik.http.routers.keycloak.rule=Host(`keycloak.heyvaldemar.net`)"
+      - "traefik.http.routers.keycloak.service=keycloak"
+      - "traefik.http.routers.keycloak.entrypoints=websecure"
+      - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
+      - "traefik.http.routers.keycloak.tls=true"
+      - "traefik.http.routers.keycloak.tls.certresolver=letsencrypt"
+      - "traefik.http.services.keycloak.loadbalancer.passhostheader=true"
+      - "traefik.http.routers.keycloak.middlewares=compresstraefik"
+      - "traefik.http.middlewares.compresstraefik.compress=true"
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      traefik:
+        condition: service_healthy
+  
+volumes:
+    postgres_data:

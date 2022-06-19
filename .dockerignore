@@ -213,4 +213,6 @@ dmypy.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django
 .task_teams
-
+actions-runner/actions-runner-linux-x64-2.291.1.tar.gz
+actions-runner-linux-x64-2.291.1.tar.gz
+actions-runner/

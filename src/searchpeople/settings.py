@@ -36,6 +36,7 @@ ALLOWED_HOSTS = [
     "search--people.herokuapp.com",
     "127.0.0.1",
     "192.168.99.106",
+    "0.0.0.0",
 ]
 
 # Application definition
@@ -92,9 +93,9 @@ WSGI_APPLICATION = 'searchpeople.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ.get("DB_NAME", "search_people2"),
-        "USER": os.environ.get("DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "postgres"),
+        "NAME": os.environ.get("DB_NAME", "search_people"),
+        "USER": os.environ.get("DB_USER", "search_people"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "search_people"),
         "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "PORT": "5432",
     }
@@ -114,10 +115,10 @@ DATABASES = {
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": os.environ.get("DB_NAME", "search_people2"),
-#         "USER": os.environ.get("DB_USER", "postgres"),
-#         "PASSWORD": os.environ.get("DB_PASSWORD", "postgres"),
-#         "HOST": os.environ.get("DB_HOST", "postgres"),
+#         "NAME": os.environ.get("DB_NAME", "search_people"),
+#         "USER": os.environ.get("DB_USER", "search_people"),
+#         "PASSWORD": os.environ.get("DB_PASSWORD", "search_people"),
+#         "HOST": os.environ.get("DB_HOST", "localhost"),
 #         "PORT": "5432",
 #     }
 # }

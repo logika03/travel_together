@@ -6,13 +6,13 @@ services:
     environment:
       - DB_NAME=search_people
       - DB_USER=search_people
-      - DB_PASSWORD=search_people
-      - DB_HOST=postgres
+      - DB_PASSWORD=search_peopl
+e
     volumes:
       - postgres_data:/var/lib/postgresql/data
   web:
     build: .
-    command: bash -c "python src/manage.py migrate && python src/manage.py runserver 0.0.0.0:8000"
+    command: python src/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
@@ -21,7 +21,6 @@ services:
       - DB_NAME=search_people
       - DB_USER=search_people
       - DB_PASSWORD=search_people
-      - DB_HOST=postgres
     depends_on:
       - postgres  
 volumes:
